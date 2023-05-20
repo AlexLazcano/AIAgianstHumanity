@@ -83,5 +83,3 @@ app.listen(PORT, () => {
 io.on('connection', (socket) => {
   console.log('A user connected');
 });
-
-example();
