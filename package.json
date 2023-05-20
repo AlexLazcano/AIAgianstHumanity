@@ -5,12 +5,16 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "server": "cd server && npm start",
+    "app": "next start",
+    "start": "concurrently \"cd server && npm start\" \"next start\"",
     "lint": "next lint"
   },
   "dependencies": {
+    "concurrently": "^8.0.1",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.3",
+    "express": "^4.18.2",
     "next": "13.4.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
