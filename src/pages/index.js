@@ -27,8 +27,8 @@ const Index = () => {
   const [hasVoted, setHasVoted] = useState(false)
 
   const onClickConnect = () => {
-    //const newSocket = io('https://ai-backend-qtox.onrender.com/');
-    const newSocket = io('localhost:3001');
+    const newSocket = io('https://ai-backend-qtox.onrender.com/');
+    //const newSocket = io('localhost:3001');
     setSocket(newSocket);
   };
 
@@ -105,7 +105,7 @@ const Index = () => {
 
       socket.on('getWhiteCards', (receivedCards) => {
         console.log("Receiving white cards");
-        setCards(receivedCards);
+        setCards((cards) => ([...cards, ...receivedCards]));
       })
 
       socket.on('getBlackCard', (card) => {
