@@ -3,6 +3,7 @@ import { StyledHeader } from './styledHeader'
 import JoinButton from '@/components/header/joinButton'
 import { StyledInputBox } from './styledInputBox'
 import { StyledInputSection } from './styledInputSection'
+import DisconnectButton from './disconnectButton'
 
 
 const Header = ({text}) => {
@@ -29,7 +30,7 @@ const Header = ({text}) => {
                 <StyledInputBox value = {joinCode}  onChange={change} />
                 <JoinButton validate={validateFunction}/>
                 </StyledInputSection> 
-                : <></>}
+                : <DisconnectButton dc={5}/>}
         </>
     )
 }
