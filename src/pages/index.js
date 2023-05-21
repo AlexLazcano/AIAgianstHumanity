@@ -60,6 +60,7 @@ const Index = () => {
   }
 
   const onSubmitWhiteCard = (text) => {
+    console.log("card sent: ", text);
     const newCards = cards.filter(card => card != text);
     setCards(newCards);
     setHasSubmitted(true);
