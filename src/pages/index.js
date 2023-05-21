@@ -24,6 +24,7 @@ const Index = () => {
   const [submittedCards, setSubmittedCards] = useState([])
   const [hasSubmitted, setHasSubmitted] = useState(false)
   const [czar, setCzar] = useState(null)
+  const [hasVoted, setHasVoted] = useState(false)
 
   const onClickConnect = () => {
     const newSocket = io('http://localhost:3001');
@@ -44,6 +45,7 @@ const Index = () => {
       setHasSubmitted(false);
       setCzar(null);
       setReady(false);
+      setHasVoted(false);
     }
   };
 
@@ -67,6 +69,7 @@ const Index = () => {
 
   const onVote = (card) => {
     console.log("voteCard", card);
+    setHasVoted(true);
     socket.emit('voteCard', card);
 
   }
@@ -117,7 +120,7 @@ const Index = () => {
     }
   }, [socket]);
 
-  const isCzar = czar == socket?.id
+  // const isCzar = czar == socket?.id
   // console.log("isczar",isCzar);
   console.log("submittedCards", submittedCards);
 
@@ -132,12 +135,12 @@ const Index = () => {
         <Container>
 
           <Card isBlack={true} >{currentBlackCard ? currentBlackCard : "Waiting to begin Game"}</Card>
-          <CardList cards={submittedCards} submitCard={onVote} disabled={isCzar} isVote />
+          <CardList cards={submittedCards} submitCard={onVote} disabled={hasVoted} isVote />
         </Container>
 
         <Container>
           <PlayerList players={players} czar={czar} playerId={socket?.id} />
-          <CardList cards={cards} submitCard={onSubmitWhiteCard} disabled={hasSubmitted || isCzar} />
+          <CardList cards={cards} submitCard={onSubmitWhiteCard} disabled={hasSubmitted} />
         </Container>
       </div>
 
