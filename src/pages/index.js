@@ -103,8 +103,9 @@ const Index = () => {
         console.log("The winner(s) is: " + msg);
       })
 
-      socket.on('getWhiteCards', (cards) => {
-        setCards(cards);
+      socket.on('getWhiteCards', (receivedCards) => {
+        console.log("Receiving white cards");
+        setCards(receivedCards);
       })
 
       socket.on('getBlackCard', (card) => {
