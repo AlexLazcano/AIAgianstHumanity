@@ -1,25 +1,14 @@
 import Card from '@/components/card/card';
-// import { useSocket } from '@/lib/socket';
 import { io } from 'socket.io-client';
-import { useEffect } from 'react';
 
 const Index = () => {
   
-  const socket = io('http://localhost:3001');
+  const socket = io('ws://localhost:3001');
   // console.log(socket);
 
-  useEffect(() => {
-    socket.on('connect', () => {
-      console.log('connected');
-    });
-  
-    return () => {
-      socket.off('connect');
-
-    }
-  }, [])
-  
-
+  socket.on("connect", () => {
+    console.log("Successfully connected");
+  })
 
   return (
     <div>
