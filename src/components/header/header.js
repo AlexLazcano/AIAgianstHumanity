@@ -4,6 +4,7 @@ import JoinButton from '@/components/header/joinButton'
 import { StyledInputBox } from './styledInputBox'
 import { StyledInputSection } from './styledInputSection'
 import DisconnectButton from './disconnectButton'
+import DisconnectButton from './disconnectButton'
 
 
 const Header = ({text, connectFunc, dcFunc}) => {
