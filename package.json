@@ -5,9 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "server": "cd server && npm start",
-    "app": "next start",
-    "start": "concurrently \"cd server && npm start\" \"next start\"",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
