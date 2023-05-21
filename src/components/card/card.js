@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyledCard } from './styledCard'
 
-const Card = ({children, isBlack, onClickCard, selected, index}) => {
+const Card = ({ children, isBlack, onClickCard, selected, index, votes }) => {
 
 
     return (
@@ -9,6 +9,9 @@ const Card = ({children, isBlack, onClickCard, selected, index}) => {
             <p>
                 {children}
             </p>
+            {
+                votes && <div>{votes}</div>
+            }
         </StyledCard>
     )
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { StyledPlayers } from './styles';
 
 const PlayerList = ({ players, czar, playerId }) => {
-    console.log(players, czar, playerId);
+    // console.log(players, czar, playerId);
     return (
         <StyledPlayers>
             <h2>Players</h2>
