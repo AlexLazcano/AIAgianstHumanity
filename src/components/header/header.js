@@ -16,7 +16,6 @@ const Header = ({text, connectFunc, dcFunc}) => {
         if (joinCode) {
             setShowLogin(false)
             connectFunc()
-
         }
     }
     const disconnectFunc = event => {
