@@ -46,6 +46,18 @@ const Index = () => {
         setPlayers(playerList);
       });
 
+      socket.on("gameEnd", (winners) => {
+        var msg = "";
+
+        for (var i = 0; i < winners.length; i++) {
+          msg = msg + winners[i];
+          if (i != winners.length - 1)
+            msg = msg + " & ";
+        }
+
+        console.log("The winner(s) is: " + msg);
+      })
+
       socket.on("getBlackCard", (msg) => {
         console.log(msg);
       });
