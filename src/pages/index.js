@@ -12,16 +12,6 @@ const Index = () => {
   const onClickConnect = () => {
     const newSocket = io('http://localhost:3001');
     setSocket(newSocket);
-
-    newSocket.emit("getBlackCard", null);
-    newSocket.on("sendBlackCard", (msg) => {
-      console.log(msg);
-    })
-
-    newSocket.emit("getWhiteCards", null);
-    newSocket.on("sendWhiteCards", (msg) => {
-      console.log(msg);
-    })
   };
 
   const onClickDisconnect = () => {
@@ -54,6 +44,14 @@ const Index = () => {
 
       socket.on('playerList', (playerList) => {
         setPlayers(playerList);
+      });
+
+      socket.on("getBlackCard", (msg) => {
+        console.log(msg);
+      });
+
+      socket.on("getWhiteCards", (msg) => {
+        console.log(msg);
       });
 
       return () => {
