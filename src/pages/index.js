@@ -60,9 +60,6 @@ const Index = () => {
     <Header connectFunc={onClickConnect} dcFunc={onClickDisconnect}/>
     <div>
       <Card />
-
-      <button onClick={onClickConnect} disabled={connected}>Connect</button>
-      <button onClick={onClickDisconnect} disabled={!connected}>Disconnect</button>
       <button onClick={ready ? onNotReady : onReady}>
         {ready ? "Cancel Ready" : "Ready up"}
       </button>
