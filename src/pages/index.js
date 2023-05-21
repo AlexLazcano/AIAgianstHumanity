@@ -117,13 +117,9 @@ const Index = () => {
 
   return (
     <>
-      <Header connectFunc={onClickConnect} dcFunc={onClickDisconnect} />
-      <div>
-        <button onClick={ready ? onNotReady : onReady}>
-          {ready ? "Cancel Ready" : "Ready up"}
-        </button>
-
-        {connected ? <p>Connected to the server</p> : <p>Disconnected from the server</p>}
+    <Header connectFunc={onClickConnect} dcFunc={onClickDisconnect} notReady={onNotReady} ready={onReady} readyBool={ready}/>
+    <div>
+      {connected ? <p>Connected to the server</p> : <p>Disconnected from the server</p>}
 
         
 
