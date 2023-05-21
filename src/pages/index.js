@@ -44,6 +44,11 @@ const Index = () => {
 
       socket.on('playerList', (playerList) => {
         setPlayers(playerList);
+        // update score in here too
+      });
+
+      socket.on("sendCards", (cards) => {
+
       });
 
       socket.on("gameEnd", (winners) => {
