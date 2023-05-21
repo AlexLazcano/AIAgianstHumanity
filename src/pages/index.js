@@ -33,8 +33,13 @@ const Index = () => {
       socket.on('connect', () => {
         setConnected(true);
       });
+
       socket.on('disconnect', () => {
         setConnected(false);
+      });
+
+      socket.on('playerList', (playerList) => {
+        setPlayers(playerList);
       });
 
       return () => {
