@@ -14,10 +14,14 @@ const Header = ({text, connectFunc, dcFunc, notReady, ready, readyBool}) => {
         setCode(event.target.value)
     }
     const validateFunction = event => {
+        /*
         if (joinCode == 4996) {
             setShowLogin(false)
             connectFunc()
         }
+        */
+       setShowLogin(false)
+       connectFunc()
     }
     const disconnectFunc = event => {
         setShowLogin(true)
