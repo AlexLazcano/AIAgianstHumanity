@@ -1,15 +1,16 @@
 const { styled } = require("styled-components");
 
-export const StyledJoinButton = styled.div` 
-    padding-left: 5px;
-    padding-bottom: 4px;
-
+export const StyledReadyButton = styled.div` 
+    //padding-left: 25px;
+    display: flex;
+    justify-content: right;
+    align-items: right;
+    
     button {
         font-size: 15px;
-        font-style: 'Roboto';
         background: #34bf59;
         width: 100px;
-        height: 42px;
+        height: 50px;
         border-radius: 5px;
     }
 

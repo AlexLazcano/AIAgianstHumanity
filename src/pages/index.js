@@ -24,6 +24,7 @@ const Index = () => {
   const [submittedCards, setSubmittedCards] = useState([])
   const [hasSubmitted, setHasSubmitted] = useState(false)
   const [czar, setCzar] = useState(null)
+  const [hasVoted, setHasVoted] = useState(false)
 
   const onClickConnect = () => {
     //const newSocket = io('https://ai-backend-qtox.onrender.com/');
@@ -44,6 +45,7 @@ const Index = () => {
       setHasSubmitted(false);
       setCzar(null);
       setReady(false);
+      setHasVoted(false);
     }
   };
 
@@ -67,6 +69,7 @@ const Index = () => {
 
   const onVote = (card) => {
     console.log("voteCard", card);
+    setHasVoted(true);
     socket.emit('voteCard', card);
 
   }
@@ -132,31 +135,27 @@ const Index = () => {
     }
   }, [socket]);
 
-  const isCzar = czar == socket?.id
+  // const isCzar = czar == socket?.id
   // console.log("isczar",isCzar);
   console.log("submittedCards", submittedCards);
 
   return (
     <>
-      <Header connectFunc={onClickConnect} dcFunc={onClickDisconnect} />
-      <div>
-        <button onClick={ready ? onNotReady : onReady}>
-          {ready ? "Cancel Ready" : "Ready up"}
-        </button>
-
-        {connected ? <p>Connected to the server</p> : <p>Disconnected from the server</p>}
+    <Header connectFunc={onClickConnect} dcFunc={onClickDisconnect} notReady={onNotReady} ready={onReady} readyBool={ready}/>
+    <div>
+      {connected ? <p>Connected to the server</p> : <p>Disconnected from the server</p>}
 
 
 
         <Container>
 
           <Card isBlack={true} >{currentBlackCard ? currentBlackCard : "Waiting to begin Game"}</Card>
-          <CardList cards={submittedCards} submitCard={onVote} disabled={isCzar} isVote />
+          <CardList cards={submittedCards} submitCard={onVote} disabled={hasVoted} isVote />
         </Container>
 
         <Container>
           <PlayerList players={players} czar={czar} playerId={socket?.id} />
-          <CardList cards={cards} submitCard={onSubmitWhiteCard} disabled={hasSubmitted || isCzar} />
+          <CardList cards={cards} submitCard={onSubmitWhiteCard} disabled={hasSubmitted} />
         </Container>
       </div>
 
