@@ -1,13 +1,13 @@
 import React from 'react'
 import { StyledCard } from './styledCard'
 
-const Card = ({text}) => {
+const Card = ({children, isBlack, onClickCard, selected, index}) => {
 
 
     return (
-        <StyledCard>
+        <StyledCard isBlack={isBlack} onClick={() => onClickCard && onClickCard(index)} className={selected ? 'selected' : ''}>
             <p>
-                "The night was dark, the room was silent, and all I could see were two glowing red eyes. It was then that I realized, I had accidentally adopted a _____."
+                {children}
             </p>
         </StyledCard>
     )
