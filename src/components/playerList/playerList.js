@@ -1,16 +1,17 @@
 import React from 'react'
+import { StyledPlayers } from './styles';
 
-const PlayerList = ({ players }) => {
-    console.log(players);
+const PlayerList = ({ players, czar, playerId }) => {
+    console.log(players, czar, playerId);
     return (
-        <div>
+        <StyledPlayers>
             <h2>Players</h2>
             <ul>
                 {players.map((player, index) => (
-                <li key={index}>{player.id} - {player.ready ? "Ready" : "Not" }</li>
+                <li key={index} className={czar == player.id ? "czar" : ""}>{playerId == player.id ? "me: ": ""} {player.id} - {player.ready ? "Ready" : "Not" }</li>
             ))}
             </ul>
-        </div>
+        </StyledPlayers>
     )
 }
 
