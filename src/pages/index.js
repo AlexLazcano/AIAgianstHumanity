@@ -4,6 +4,14 @@ import { useEffect, useState } from 'react';
 import Header from '@/components/header/header';
 import PlayerList from '@/components/playerList/playerList';
 import CardList from '@/components/cardList/cardList';
+import { styled } from 'styled-components';
+
+
+const Container = styled.div`
+
+  display: flex;
+  margin-bottom: 20px;
+`
 
 
 const Index = () => {
@@ -12,17 +20,28 @@ const Index = () => {
   const [socket, setSocket] = useState(null);
   const [players, setPlayers] = useState([])
   const [cards, setCards] = useState([])
+  const [currentBlackCard, setCurrentBlackCard] = useState(null)
+  const [submittedCards, setSubmittedCards] = useState([])
+  const [hasSubmitted, setHasSubmitted] = useState(false)
+  const [czar, setCzar] = useState(null)
 
   const onClickConnect = () => {
     const newSocket = io('http://localhost:3001');
     setSocket(newSocket);
   };
 
+  // TODO:add function for if server stops running
+
+
   const onClickDisconnect = () => {
     if (socket) {
       socket.disconnect();
       setCards([]);
       setSocket(null);
+      setCurrentBlackCard(null);
+      setSubmittedCards([]);
+      setHasSubmitted(false);
+      setCzar(null);
     }
   };
 
@@ -38,8 +57,11 @@ const Index = () => {
 
   const onSubmitWhiteCard = (text) => {
     console.log(text);
+    const newCards = cards.filter(card => card != text);
+    setCards(newCards);
+    setHasSubmitted(true);
     socket.emit('submitCard', text)
-    
+
   }
 
   useEffect(() => {
@@ -50,6 +72,7 @@ const Index = () => {
 
       socket.on('disconnect', () => {
         setConnected(false);
+  
         setPlayers([]);
       });
 
@@ -87,38 +110,63 @@ const Index = () => {
         setCards(cards);
       })
 
+      socket.on('getBlackCard', (card) => {
+        console.log(card);
+        setCurrentBlackCard(card);
+      })
+      socket.on('sendSubmittedCards', (cards) => {
+        console.log(cards);
+        setSubmittedCards(cards);
+
+      })
+
+      socket.on('czar', (id) => {
+        console.log(id);
+        setCzar(id);
+        
+      })
+
+
 
       return () => {
         socket.off('connect');
         socket.off('disconnect');
         socket.off('playerList');
         socket.off('getWhiteCards');
+        socket.off('getBlackCard');
       };
     }
   }, [socket]);
 
+  const isCzar = czar == socket?.id
+  console.log("isczar",isCzar);
+
   return (
     <>
-    <Header connectFunc={onClickConnect} dcFunc={onClickDisconnect}/>
-    <div>
+      <Header connectFunc={onClickConnect} dcFunc={onClickDisconnect} />
+      <div>
+        <button onClick={ready ? onNotReady : onReady}>
+          {ready ? "Cancel Ready" : "Ready up"}
+        </button>
 
-      <button onClick={onClickConnect} disabled={connected}>Connect</button>
-      <button onClick={onClickDisconnect} disabled={!connected}>Disconnect</button>
-      <button onClick={ready ? onNotReady : onReady}>
-        {ready ? "Cancel Ready" : "Ready up"}
-      </button>
+        {connected ? <p>Connected to the server</p> : <p>Disconnected from the server</p>}
 
-      {connected ? <p>Connected to the server</p> : <p>Disconnected from the server</p>}
+        
 
-      <PlayerList players={players} />
+        <Container>
 
-      <Card isBlack={true} >"The night was dark, the room was silent, and all I could see were two glowing red eyes. It was then that I realized, I had accidentally adopted a _____." </Card>
+          <Card isBlack={true} >{currentBlackCard ? currentBlackCard : "Waiting to begin Game"}</Card>
+          <CardList cards={submittedCards} submitCard={() => null} disabled={isCzar} />
+        </Container>
 
-      <CardList cards={cards} submitCard={onSubmitWhiteCard} />
-    </div>
+    <Container>
+    <PlayerList players={players} czar={czar} playerId={socket?.id} />
+        <CardList cards={cards} submitCard={onSubmitWhiteCard} disabled={hasSubmitted || isCzar} />
+    </Container>
+      </div>
 
     </>
-    );
+  );
 };
 
 export default Index;
