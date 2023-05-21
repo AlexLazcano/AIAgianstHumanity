@@ -81,14 +81,6 @@ const Index = () => {
         // update score in here too
       });
 
-      socket.on("sendSubmittedCards", (cards) => {
-
-      });
-
-      socket.on("czar", (id) => {
-        // czar is id
-      })
-
       socket.on("gameEnd", (winners) => {
         var msg = "";
 
@@ -101,10 +93,6 @@ const Index = () => {
         console.log("The winner(s) is: " + msg);
       })
 
-      socket.on("getBlackCard", (msg) => {
-        console.log(msg);
-      });
-
       socket.on('getWhiteCards', (cards) => {
         console.log(cards);
         setCards(cards);
@@ -114,6 +102,7 @@ const Index = () => {
         console.log(card);
         setCurrentBlackCard(card);
       })
+
       socket.on('sendSubmittedCards', (cards) => {
         console.log(cards);
         setSubmittedCards(cards);
