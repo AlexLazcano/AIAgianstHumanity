@@ -58,7 +58,7 @@ const Index = () => {
         // update score in here too
       });
 
-      socket.on("sendCards", (cards) => {
+      socket.on("sendSubmittedCards", (cards) => {
 
       });
 
