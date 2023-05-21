@@ -3,7 +3,7 @@ import { StyleCardList } from './style'
 import Card from '../card/card'
 
 
-const CardList = ({ cards, submitCard, disabled }) => {
+const CardList = ({ cards, submitCard, disabled, isVote }) => {
     const [selectedCard, setSelectedCard] = useState(null)
     const [isSubmitted, setIsSubmitted] = useState(false)
     // useEffect(() => {
@@ -23,21 +23,15 @@ const CardList = ({ cards, submitCard, disabled }) => {
         <StyleCardList>
             {cards.map((card, index) => {
                 const isSelected = selectedCard == index
-                console.log(card);
+                // console.log(card);
                 return (
-                    <Card key={index} onClickCard={onClickCard} index={index} selected={isSelected}>{card.card ? card.card : card}
-
-                        {card.vote && <div>
-                            <p>
-                                {card.vote}
-                            </p>
-                        </div>}
-                    </Card>
+                    <Card votes={card.votes} key={index} onClickCard={onClickCard} index={index} selected={isSelected}>{card.card ? card.card : card}</Card>
                 )
             })}
             {!(cards.length == 0 || disabled) &&
                 <button onClick={() => {
-                    !isSubmitted && submitCard(cards[selectedCard])
+                    // !isSubmitted && 
+                    submitCard(cards[selectedCard])
                     setIsSubmitted(true)
                 }} >Confirm Card</button>}
         </StyleCardList>
