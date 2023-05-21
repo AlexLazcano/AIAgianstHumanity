@@ -1,7 +1,7 @@
 const { styled } = require("styled-components");
 
 export const StyledConfirmButton = styled.div` 
-    padding: 5px;
+    padding: 10px;
     display: flex;
     display: flex;
     justify-content: center;
