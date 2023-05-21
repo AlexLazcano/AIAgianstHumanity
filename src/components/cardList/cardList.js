@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { StyleCardList } from './style'
+import { StyledConfirmButton } from './styledConfirmButton'
 import Card from '../card/card'
 
 
@@ -27,11 +28,12 @@ const CardList = ({ cards, submitCard }) => {
                     <Card key={index} onClickCard={onClickCard} index={index} selected={isSelected}>{card}</Card>
                 )
             })}
-
+            <StyledConfirmButton>
             <button onClick={() => {
                 !isSubmitted && submitCard(cards[selectedCard])
                 setIsSubmitted(true)
             }} >Confirm Card</button>
+            </StyledConfirmButton>
         </StyleCardList>
     )
 }
