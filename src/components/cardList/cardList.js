@@ -4,14 +4,14 @@ import { StyledConfirmButton } from './styledConfirmButton'
 import Card from '../card/card'
 
 
-const CardList = ({ cards, submitCard }) => {
+const CardList = ({ cards, submitCard, disabled }) => {
     const [selectedCard, setSelectedCard] = useState(null)
     const [isSubmitted, setIsSubmitted] = useState(false)
-    useEffect(() => {
-        // console.log(selectedCard)
+    // useEffect(() => {
+    //     // console.log(selectedCard)
 
 
-    }, [selectedCard])
+    // }, [selectedCard])
 
 
     const onClickCard = (index) => {
@@ -24,15 +24,24 @@ const CardList = ({ cards, submitCard }) => {
         <StyleCardList>
             {cards.map((card, index) => {
                 const isSelected = selectedCard == index
+                console.log(card);
                 return (
-                    <Card key={index} onClickCard={onClickCard} index={index} selected={isSelected}>{card}</Card>
+                    <Card key={index} onClickCard={onClickCard} index={index} selected={isSelected}>{card.card ? card.card : card}
+
+                        {card.vote && <div>
+                            <p>
+                                {card.vote}
+                            </p>
+                        </div>}
+                    </Card>
                 )
             })}
-            <StyledConfirmButton>
-            <button onClick={() => {
-                !isSubmitted && submitCard(cards[selectedCard])
-                setIsSubmitted(true)
-            }} >Confirm Card</button>
+            <StyledConfirmButton>            
+            {!(cards.length == 0 || disabled) &&
+                <button onClick={() => {
+                    !isSubmitted && submitCard(cards[selectedCard])
+                    setIsSubmitted(true)
+                }} >Confirm Card</button>}
             </StyledConfirmButton>
         </StyleCardList>
     )
