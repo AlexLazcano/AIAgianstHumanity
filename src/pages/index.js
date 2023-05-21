@@ -1,6 +1,7 @@
 import Card from '@/components/card/card';
 import { io } from 'socket.io-client';
 import { useEffect, useState } from 'react';
+import Header from '@/components/header/header';
 
 const Index = () => {
   const [connected, setConnected] = useState(false);
@@ -35,6 +36,8 @@ const Index = () => {
   }, [socket]);
 
   return (
+    <>
+    <Header/>
     <div>
       <Card />
 
@@ -42,8 +45,11 @@ const Index = () => {
       <button onClick={onClickDisconnect}>Disconnect</button>
 
       {connected ? <p>Connected to the server</p> : <p>Disconnected from the server</p>}
+    
     </div>
-  );
+
+    </>
+    );
 };
 
 export default Index;
