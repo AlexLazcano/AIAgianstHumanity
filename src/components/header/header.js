@@ -6,7 +6,7 @@ import { StyledInputSection } from './styledInputSection'
 import DisconnectButton from './disconnectButton'
 
 
-const Header = ({text}) => {
+const Header = ({text, connectFunc, dcFunc}) => {
     const [showLogin, setShowLogin] = useState(true)
     const [joinCode, setCode] = useState(0)
     const change = event => {
@@ -15,7 +15,13 @@ const Header = ({text}) => {
     const validateFunction = event => {
         if (joinCode) {
             setShowLogin(false)
+            connectFunc()
+
         }
+    }
+    const disconnectFunc = event => {
+        setShowLogin(true)
+        dcFunc()
     }
 
     return (
@@ -30,7 +36,7 @@ const Header = ({text}) => {
                 <StyledInputBox value = {joinCode}  onChange={change} />
                 <JoinButton validate={validateFunction}/>
                 </StyledInputSection> 
-                : <DisconnectButton dc={5}/>}
+                : <DisconnectButton dc={disconnectFunc}/>}
         </>
     )
 }

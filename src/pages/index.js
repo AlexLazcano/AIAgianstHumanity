@@ -57,7 +57,7 @@ const Index = () => {
 
   return (
     <>
-    <Header/>
+    <Header connectFunc={onClickConnect} dcFunc={onClickDisconnect}/>
     <div>
       <Card />
 
