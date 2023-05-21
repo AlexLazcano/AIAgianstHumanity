@@ -26,7 +26,7 @@ const Index = () => {
   const [czar, setCzar] = useState(null)
 
   const onClickConnect = () => {
-    const newSocket = io('http://localhost:3001');
+    const newSocket = io('https://ai-backend-qtox.onrender.com/');
     setSocket(newSocket);
   };
 
