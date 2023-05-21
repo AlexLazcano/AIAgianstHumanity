@@ -1,31 +1,49 @@
 import Card from '@/components/card/card';
-// import { useSocket } from '@/lib/socket';
 import { io } from 'socket.io-client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const Index = () => {
-  
-  const socket = io('http://localhost:3001');
-  // console.log(socket);
+  const [connected, setConnected] = useState(false);
+  const [socket, setSocket] = useState(null);
+
+  const onClickConnect = () => {
+    const newSocket = io('http://localhost:3001');
+    setSocket(newSocket);
+  };
+
+  const onClickDisconnect = () => {
+    if (socket) {
+      socket.disconnect();
+      setSocket(null);
+    }
+  };
 
   useEffect(() => {
-    socket.on('connect', () => {
-      console.log('connected');
-    });
-  
-    return () => {
-      socket.off('connect');
+    if (socket) {
+      socket.on('connect', () => {
+        setConnected(true);
+      });
+      socket.on('disconnect', () => {
+        setConnected(false);
+      });
 
+      return () => {
+        socket.off('connect');
+        socket.off('disconnect');
+      };
     }
-  }, [])
-  
-
+  }, [socket]);
 
   return (
     <div>
       <Card />
-    </div>
-  )
-}
 
-export default Index
+      <button onClick={onClickConnect}>Connect</button>
+      <button onClick={onClickDisconnect}>Disconnect</button>
+
+      {connected ? <p>Connected to the server</p> : <p>Disconnected from the server</p>}
+    </div>
+  );
+};
+
+export default Index;
