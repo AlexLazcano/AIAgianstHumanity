@@ -7,7 +7,7 @@ const PlayerList = ({ players }) => {
             <h2>Players</h2>
             <ul>
                 {players.map((player, index) => (
-                <li key={index}>{player.id}</li>
+                <li key={index}>{player.id} - {player.ready ? "Ready" : "Not Ready" }</li>
             ))}
             </ul>
         </div>
