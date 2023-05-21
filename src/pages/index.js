@@ -11,7 +11,12 @@ const Index = () => {
     setSocket(newSocket);
 
     newSocket.emit("getBlackCard", null);
-    newSocket.on("blackCards", (msg) => {
+    newSocket.on("sendBlackCard", (msg) => {
+      console.log(msg);
+    })
+
+    newSocket.emit("getWhiteCards", null);
+    newSocket.on("sendWhiteCards", (msg) => {
       console.log(msg);
     })
   };
