@@ -51,6 +51,10 @@ const Index = () => {
 
       });
 
+      socket.on("czar", (id) => {
+        // czar is id
+      })
+
       socket.on("gameEnd", (winners) => {
         var msg = "";
 
