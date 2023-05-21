@@ -1,6 +1,7 @@
 import Card from '@/components/card/card';
 import { io } from 'socket.io-client';
 import { useEffect, useState } from 'react';
+import Header from '@/components/header/header';
 import PlayerList from '@/components/playerList/playerList';
 
 const Index = () => {
@@ -55,6 +56,8 @@ const Index = () => {
   }, [socket]);
 
   return (
+    <>
+    <Header/>
     <div>
       <Card />
 
@@ -68,7 +71,9 @@ const Index = () => {
 
       <PlayerList players={players} />
     </div>
-  );
+
+    </>
+    );
 };
 
 export default Index;
