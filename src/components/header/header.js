@@ -7,7 +7,7 @@ import DisconnectButton from './disconnectButton'
 import ReadyButton from './readyButton'
 import { StyledInGameSection } from './styledInGameSection'
 
-const Header = ({text, connectFunc, dcFunc, notReady, ready, readyBool}) => {
+const Header = ({text, connectFunc, dcFunc, notReady, ready, readyBool, genarateFunc}) => {
     const [showLogin, setShowLogin] = useState(true)
     const [joinCode, setCode] = useState(0)
     const change = event => {
@@ -34,6 +34,7 @@ const Header = ({text, connectFunc, dcFunc, notReady, ready, readyBool}) => {
             <h>
                 AI Against Humanity
             </h>
+            <button onClick={genarateFunc}>Generate Ai Cards</button>
         </StyledHeader>
 
         {showLogin ? <StyledInputSection>

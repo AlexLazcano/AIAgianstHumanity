@@ -27,8 +27,8 @@ const Index = () => {
   const [hasVoted, setHasVoted] = useState(false)
 
   const onClickConnect = () => {
-    const newSocket = io('https://ai-backend-qtox.onrender.com/');
-    //const newSocket = io('localhost:3001');
+    // const newSocket = io('https://ai-backend-qtox.onrender.com/');
+    const newSocket = io('localhost:3001');
     setSocket(newSocket);
   };
 
@@ -52,6 +52,10 @@ const Index = () => {
   const onReady = () => {
     socket.emit('ready');
     setReady(true);
+  }
+
+  const onGenerateAiCards = () => {
+    socket.emit('aiGenerate');
   }
 
   const onNotReady = () => {
@@ -142,7 +146,7 @@ const Index = () => {
 
   return (
     <>
-    <Header connectFunc={onClickConnect} dcFunc={onClickDisconnect} notReady={onNotReady} ready={onReady} readyBool={ready}/>
+    <Header connectFunc={onClickConnect} dcFunc={onClickDisconnect} notReady={onNotReady} ready={onReady} readyBool={ready} genarateFunc={onGenerateAiCards}/>
     <div>
       {connected ? <p>Connected to the server</p> : <p>Disconnected from the server</p>}
 
